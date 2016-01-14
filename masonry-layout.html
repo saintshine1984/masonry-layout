@@ -161,10 +161,11 @@ Example:
       isResizeBound: Boolean,
     },    
     created: function() {
-
+      window.addEventListener('WebComponentsReady', function() {
+        this._initLayout(); 
+      }.bind(this));
     },
     attached: function() {
-      console.log(this.isOriginLeft);
       this._initLayout();
     },
     detached: function() {
@@ -213,4 +214,5 @@ Example:
       this._msnry = new Masonry(grid, options);
     },
   });
+  
 </script>
