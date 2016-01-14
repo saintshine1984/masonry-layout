@@ -1,0 +1,58 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>seed-element Demo</title>
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="../masonry-layout.html">
+
+    <style>
+      html, body {
+        width: 100%;
+        height: 100%;
+        background-color: lightgray;
+      }
+
+      .grid-item {
+        float: left;
+        width: 80px;
+        height: 60px;
+        border: 2px solid hsla(0, 0%, 0%, 0.5);
+        background-color: pink;
+        margin-bottom: 20px;
+      }
+      .grid-item--width2 { width: 160px; }
+      .grid-item--height2 { height: 140px; }
+    </style>
+  </head>
+
+  <body>
+    <masonry-layout
+      is-fit-width
+      gutter='20'>
+      <div class="grid-item"></div>
+      <div class="grid-item grid-item--width2"></div>
+      <div class="grid-item grid-item--height2"></div>
+      <div class="grid-item"></div>
+      <div class="grid-item"></div>
+      <div class="grid-item grid-item--height2"></div>
+      <div class="grid-item"></div><div class="grid-item"></div><div class="grid-item"></div><div class="grid-item"></div><div class="grid-item"></div>
+
+    </masonry-layout>
+
+    <script>
+      
+    </script>
+
+  </body>
+</html>

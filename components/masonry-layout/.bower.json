@@ -1,0 +1,39 @@
+{
+  "name": "masonry-layout",
+  "authors": [
+    "Anonymous <anonymous@example.com>"
+  ],
+  "description": "An element providing a solution to no problem in particular.",
+  "keywords": [
+    "web-component",
+    "web-components",
+    "polymer",
+    "seed"
+  ],
+  "main": "masonry-layout.html",
+  "license": "http://polymer.github.io/LICENSE.txt",
+  "homepage": "https://github.com/<USERNAME>/seed-element/",
+  "ignore": [
+    "/.*",
+    "/test/",
+    "/demo/"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.0.0",
+    "masonry": "~3.3.2"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "web-component-tester": "*"
+  },
+  "_release": "a2f81189d5",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "a2f81189d57b926b2448ec7d71e8d753a77f48f0"
+  },
+  "_source": "git://github.com/saintshine84/masonry-layout.git",
+  "_target": "master",
+  "_originalSource": "saintshine84/masonry-layout",
+  "_direct": true
+}
