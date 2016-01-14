@@ -1,0 +1,216 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+
+ http://masonry.desandro.com/
+
+-->
+<link rel="import" href="../polymer/polymer.html">
+<script src="../masonry/dist/masonry.pkgd.min.js"></script>
+
+<!--
+
+
+Example:
+
+    <style>
+      .grid-item {
+        float: left;
+        width: 80px;
+        height: 60px;
+        border: 2px solid hsla(0, 0%, 0%, 0.5);
+      }
+      .grid-item--width2 { width: 160px; }
+      .grid-item--height2 { height: 140px; }
+    </style>
+
+    <masonry-layout>
+      <div class="grid-item"></div>
+      <div class="grid-item grid-item--width2"></div>
+      <div class="grid-item grid-item--height2"></div>
+      ...
+    </masonry-layout>
+
+
+@demo
+-->
+<dom-module id="masonry-layout">
+
+  <style>
+    :host {
+      width: 100%;
+    }
+    .grid {
+      position: relative;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .grid:after {
+      content: '';
+      display: block;
+      clear: both;
+    }
+
+  </style>
+
+  <template>
+    <div style="width:100%">
+      <div class='grid'>
+        <content id='content'></content>
+      </div>
+    </div>
+  </template>
+
+</dom-module>
+
+<script>
+  Polymer({
+    is: 'masonry-layout',
+    properties: {
+      _msnry: {
+        type: Object,
+        notify: true,
+      },
+      /**
+       * Specifies which child elements will be used as item elements in the layout. We recommend always setting itemSelector. itemSelector is useful to exclude sizing elements or other elements that are not part of the layout.       
+       */
+      itemSelector: {
+        type: String,
+        value: '.grid-item'
+      },
+      /**
+        * Aligns items to a horizontal grid.
+
+       ** We recommend setting columnWidth. If columnWidth is not set, Masonry will use the outer width of the first item.
+
+       * Use element sizing for responsive layouts with percentage widths. Set columnWidth to an Element or Selector String to use the outer width of the element for the size of the gutter.
+       */
+      columnWidth: {
+        type: Number,
+      },
+      /**
+       * Adds horizontal space between item elements.
+       */
+      gutter: {
+        type: Number,
+        value: 0,
+      },
+      /**
+       * Sets item positions in percent values, rather than pixel values. percentPosition: true works well with percent-width items, as items will not transition their position on resize.
+      */
+      percentPosition: {
+        type: Boolean,
+        value: false,
+        reflectToAttribute: true
+      },
+       /**
+       * Sets the width of the container to fit the available number of columns, based the size of container's parent element. When enabled, you can center the container with CSS.
+       ** isFitWidth: true does not work with element sizing with percentage width. Either columnWidth needs to be set to a fixed size, like columnWidth: 120, or items need to have a fixed size in pixels, like width: 120px. Otherwise, the container and item widths will collapse on one another.
+      */
+      isFitWidth: {
+        type: Boolean,
+        value: false,
+        reflectToAttribute: true
+      },
+      /**
+       * Controls the horizontal flow of the layout. By default, item elements start positioning at the left. Set isOriginRight for right-to-left layouts.
+       */
+      isOriginRight: {
+        type: Boolean,
+        value: false,
+        reflectToAttribute: true
+      },
+      /**
+       * Controls the vertical flow of the layout. By default, item elements start positioning at the top. Set isOriginBottom for bottom-up layouts. It’s like Tetris!
+       */
+      isOriginBottom: {
+        type: Boolean,
+        value: false,
+        reflectToAttribute: true
+      },
+      /**
+       * CSS styles that are applied to the container element.
+
+        // default
+        // containerStyle: { position: 'relative' }
+        // disable any styles being set on container
+        // useful if using absolute position on container
+        containerStyle: null 
+       */
+      _containerStyle: String,
+      /**
+       * Duration of the transition when items change position or appearance, set in a CSS time format. Default: transitionDuration: '0.4s'
+       */
+      _transitionDuration: String,
+      /**
+        * Adjusts sizes and positions when window is resized. Enabled by default isResizeBound: true.
+       
+        // disable resize logic
+        isResizeBound: false
+
+        // grid has fixed width
+        .grid {
+          width: 320px;
+        }
+       */
+      isResizeBound: Boolean,
+    },    
+    created: function() {
+
+    },
+    attached: function() {
+      console.log(this.isOriginLeft);
+      this._initLayout();
+    },
+    detached: function() {
+      if (this._msnry) {
+        this._msnry.destroy();
+      }
+    },
+    attributeChanged: function(name, type) {
+
+    },
+    /**
+     * The `seed-element-lasers` event is fired whenever `fireLasers` is called.
+     *
+     * @event seed-element-lasers
+     * @detail {{sound: String}}
+     */
+
+
+    /**
+     * Lays out all item elements. layout is useful when an item has changed size, and all items need to be laid out again.
+     */
+    layout: function() {
+      if (this._msnry !== undefined && this._msnry.size.width !== 0) {
+        setTimeout(function() {
+          this._msnry.layout();
+        }.bind(this));
+      } else {
+        this._initLayout();
+      }
+    },
+    _initLayout: function() {
+      if (this._msnry) {
+        this._msnry.destroy();
+      }
+      var options = {
+        gutter: this.gutter,
+        itemSelector: this.itemSelector,
+        columnWidth: this.columnWidth,
+        isFitWidth: this.isFitWidth,
+        percentPosition: this.percentPosition,
+        isOriginTop: !this.isOriginBottom,
+        isOriginLeft: !this.isOriginRight,
+      };
+      
+      var grid = this.querySelector('.grid');
+      this._msnry = new Masonry(grid, options);
+    },
+  });
+</script>
