@@ -71,6 +71,7 @@ Example:
 <script>
   Polymer({
     is: 'masonry-layout',
+    behaviors: [ Polymer.IronResizableBehavior ],
     properties: {
       _msnry: {
         type: Object,
@@ -175,6 +176,9 @@ Example:
     },
     attributeChanged: function(name, type) {
 
+    },
+    onWidthChange: function() {
+      this.layout();
     },
     /**
      * The `seed-element-lasers` event is fired whenever `fireLasers` is called.
