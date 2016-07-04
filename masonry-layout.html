@@ -11,7 +11,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 -->
 <link rel="import" href="../polymer/polymer.html">
-
 <script src="../masonry/dist/masonry.pkgd.min.js"></script>
 
 <!--
@@ -73,6 +72,7 @@ Example:
   Polymer({
     is: 'masonry-layout',
     behaviors: [ Polymer.IronResizableBehavior ],
+    listeners: { "iron-resize": "onWidthChange" },
     properties: {
       _msnry: {
         type: Object,
@@ -163,9 +163,7 @@ Example:
       isResizeBound: Boolean,
     },    
     created: function() {
-      window.addEventListener('WebComponentsReady', function() {
-        this._initLayout(); 
-      }.bind(this));
+
     },
     attached: function() {
       this._initLayout();
